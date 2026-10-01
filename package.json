@@ -1,0 +1,10 @@
+{
+  "name": "flowmind-ai",
+  "version": "2.0.0",
+  "description": "FlowMind AI - AI-Powered Enterprise Workflow Intelligence",
+  "scripts": {
+    "dev:backend": "cd backend && node src/server.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build"
+  }
+}

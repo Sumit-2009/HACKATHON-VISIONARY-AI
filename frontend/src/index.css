@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ==========================================================================
+     THEME: LIGHT MODE (Default)
+     ========================================================================== */
+  :root,
+  .theme-light {
+    --bg-page: #F8F9FC;
+    --bg-page-gradient: 
+      radial-gradient(at 15% 15%, rgba(224, 238, 255, 0.6) 0px, transparent 45%),
+      radial-gradient(at 85% 20%, rgba(240, 232, 255, 0.5) 0px, transparent 50%),
+      radial-gradient(at 50% 80%, rgba(254, 243, 235, 0.45) 0px, transparent 60%);
+    --bg-card: #FFFFFF;
+    --bg-card-subtle: #F9FAFB;
+    --bg-card-hover: #F9FAFB;
+    --border-color: #E5E7EB;
+    --border-color-subtle: #F3F4F6;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-muted: #9CA3AF;
+
+    /* Brand Logo Tokens */
+    --logo-bg: #111827;
+    --logo-accent-1: #818CF8;
+    --logo-accent-2: #6366F1;
+    --logo-accent-3: #3B82F6;
+    --logo-spark: #A5B4FC;
+    --logo-spark-glow: rgba(165, 180, 252, 0.8);
+    --logo-accent-subtle: rgba(255, 255, 255, 0.35);
+
+    /* AI Accent (Purple / Indigo) */
+    --accent-ai: #6366F1;
+    --accent-ai-text: #4F46E5;
+    --accent-ai-bg: #F4F2FF;
+    --accent-ai-border: #DDD6FE;
+    --accent-ai-hover: #ECE9FE;
+
+    /* Theme Switcher */
+    --switcher-bg: rgba(255, 255, 255, 0.95);
+    --switcher-active-bg: #111827;
+    --switcher-active-text: #FFFFFF;
+
+    /* Status Colors */
+    --status-success: #15803D;
+    --status-success-bg: #ECFDF3;
+    --status-warning: #B45309;
+    --status-warning-bg: #FFFBEB;
+    --status-danger: #DC2626;
+    --status-danger-bg: #FEF2F2;
+
+    /* Shadows */
+    --shadow-card: 0 16px 40px -12px rgba(16, 24, 40, 0.06), 0 4px 12px -2px rgba(16, 24, 40, 0.02);
+    --shadow-hover: 0 24px 50px -10px rgba(16, 24, 40, 0.09), 0 8px 16px -2px rgba(16, 24, 40, 0.04);
+  }
+
+  /* ==========================================================================
+     THEME: DARK MODE
+     ========================================================================== */
+  .theme-dark {
+    --bg-page: #090B10;
+    --bg-page-gradient: 
+      radial-gradient(at 15% 15%, rgba(30, 41, 59, 0.45) 0px, transparent 50%),
+      radial-gradient(at 85% 20%, rgba(49, 36, 82, 0.35) 0px, transparent 55%),
+      radial-gradient(at 50% 85%, rgba(15, 23, 42, 0.6) 0px, transparent 65%);
+    --bg-card: #12151E;
+    --bg-card-subtle: #171B26;
+    --bg-card-hover: #1A1F2C;
+    --border-color: rgba(255, 255, 255, 0.09);
+    --border-color-subtle: rgba(255, 255, 255, 0.05);
+    --text-primary: #F9FAFB;
+    --text-secondary: #9CA3AF;
+    --text-muted: #6B7280;
+
+    /* Brand Logo Tokens */
+    --logo-bg: #1F2433;
+    --logo-accent-1: #A5B4FC;
+    --logo-accent-2: #818CF8;
+    --logo-accent-3: #60A5FA;
+    --logo-spark: #FFFFFF;
+    --logo-spark-glow: rgba(255, 255, 255, 0.9);
+    --logo-accent-subtle: rgba(255, 255, 255, 0.4);
+
+    /* AI Accent (Dark Mode) */
+    --accent-ai: #818CF8;
+    --accent-ai-text: #C7D2FE;
+    --accent-ai-bg: rgba(99, 102, 241, 0.12);
+    --accent-ai-border: rgba(129, 140, 248, 0.25);
+    --accent-ai-hover: rgba(99, 102, 241, 0.2);
+
+    /* Theme Switcher */
+    --switcher-bg: rgba(23, 27, 38, 0.85);
+    --switcher-active-bg: #374151;
+    --switcher-active-text: #FFFFFF;
+
+    /* Status Colors */
+    --status-success: #34D399;
+    --status-success-bg: rgba(16, 185, 129, 0.12);
+    --status-warning: #FBBF24;
+    --status-warning-bg: rgba(245, 158, 11, 0.12);
+    --status-danger: #F87171;
+    --status-danger-bg: rgba(239, 68, 68, 0.12);
+
+    /* Shadows */
+    --shadow-card: 0 16px 40px -12px rgba(0, 0, 0, 0.5), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 24px 50px -10px rgba(0, 0, 0, 0.65), 0 8px 16px -2px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ==========================================================================
+     THEME: MONOCHROME MODE (High contrast, editorial, no colored accents)
+     ========================================================================== */
+  .theme-monochrome {
+    --bg-page: #F6F6F6;
+    --bg-page-gradient: none;
+    --bg-card: #FFFFFF;
+    --bg-card-subtle: #EEEEEE;
+    --bg-card-hover: #F2F2F2;
+    --border-color: #D4D4D8;
+    --border-color-subtle: #E4E4E7;
+    --text-primary: #000000;
+    --text-secondary: #3F3F46;
+    --text-muted: #71717A;
+
+    /* Brand Logo Tokens (Strictly Monochrome) */
+    --logo-bg: #000000;
+    --logo-accent-1: #FFFFFF;
+    --logo-accent-2: #CCCCCC;
+    --logo-accent-3: #888888;
+    --logo-spark: #FFFFFF;
+    --logo-spark-glow: rgba(255, 255, 255, 0.8);
+    --logo-accent-subtle: rgba(255, 255, 255, 0.5);
+
+    /* AI Accent (Monochrome Grayscale) */
+    --accent-ai: #000000;
+    --accent-ai-text: #000000;
+    --accent-ai-bg: #EEEEEE;
+    --accent-ai-border: #A1A1AA;
+    --accent-ai-hover: #E4E4E7;
+
+    /* Theme Switcher */
+    --switcher-bg: #FFFFFF;
+    --switcher-active-bg: #000000;
+    --switcher-active-text: #FFFFFF;
+
+    /* Status Colors (Subdued Editorial Monotone) */
+    --status-success: #18181B;
+    --status-success-bg: #E4E4E7;
+    --status-warning: #27272A;
+    --status-warning-bg: #E4E4E7;
+    --status-danger: #09090B;
+    --status-danger-bg: #E4E4E7;
+
+    /* Shadows */
+    --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.08);
+  }
+
+  body {
+    background-color: var(--bg-page);
+    background-image: var(--bg-page-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+}
+
+/* Card Surface Utilities adapting to Themes */
+.theme-card {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-color);
+}
+
+.theme-card-subtle {
+  background-color: var(--bg-card-subtle);
+  border-color: var(--border-color-subtle);
+}
+
+.theme-border {
+  border-color: var(--border-color);
+}
+
+.theme-text-primary {
+  color: var(--text-primary);
+}
+
+.theme-text-secondary {
+  color: var(--text-secondary);
+}
+
+.theme-text-muted {
+  color: var(--text-muted);
+}
+
+/* AI Highlight Surfaces */
+.theme-ai-card {
+  background-color: var(--accent-ai-bg);
+  border: 1px solid var(--accent-ai-border);
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-ai-card:hover {
+  background-color: var(--accent-ai-hover);
+}
+
+/* Rounded Pill Utilities */
+.wt-pill {
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wt-pill-button {
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wt-pill-button:hover {
+  transform: translateY(-1px);
+}
+.wt-pill-button:active {
+  transform: translateY(0);
+}
