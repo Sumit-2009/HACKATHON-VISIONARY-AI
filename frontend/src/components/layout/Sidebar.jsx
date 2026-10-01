@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import {
   LayoutDashboard,
   GitBranch,
@@ -38,118 +38,161 @@ export const Sidebar = ({
 }) => {
   return (
     <aside
-      className={`flex flex-col justify-between h-full select-none transition-all duration-300 ${
+      className={`select-none transition-all duration-300 ${
         isMobile
-          ? 'w-64 p-4'
-          : isCollapsed
-          ? 'w-20 p-3'
-          : 'w-64 p-4'
+          ? 'flex flex-col justify-between h-full w-64 p-4 overflow-y-auto'
+          : `hidden lg:flex flex-col justify-between fixed top-0 left-0 h-screen overflow-y-auto z-30 ${
+              isCollapsed ? 'w-20 p-3' : 'w-64 p-4'
+            }`
       }`}
+      style={
+        !isMobile
+          ? {
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              height: '100vh',
+              overflowY: 'auto'
+            }
+          : {}
+      }
     >
-      {/* Top Deck: Navigation */}
-      <div
-        className="rounded-[28px] p-2.5 shadow-sm border transition-all duration-300 flex flex-col theme-card"
-        style={{
-          background: 'var(--bg-card, #FFFFFF)',
-          borderColor: 'var(--border-color, #E5E7EB)'
-        }}
-      >
-        {/* Sidebar Header / Collapse Button */}
-        <div className={`flex items-center px-2 py-2 mb-1 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
-          {(!isCollapsed || isMobile) ? (
-            <span
-              className="text-[10px] font-bold uppercase tracking-wider transition-colors"
-              style={{ color: 'var(--text-muted, #9CA3AF)' }}
-            >
-              Platform
-            </span>
-          ) : null}
+      <div>
+        {/* Top Header: FlowMind Logo & Desktop Collapse Toggle */}
+        <div
+          className={`h-16 shrink-0 flex items-center mb-2 px-1 ${
+            isCollapsed && !isMobile ? 'justify-center flex-col gap-2' : 'justify-between'
+          }`}
+        >
+          <Link
+            to="/dashboard"
+            onClick={onCloseMobile}
+            className="flex items-center group"
+          >
+            <FlowMindLogo
+              size="md"
+              showText={!isCollapsed || isMobile}
+              showTagline={!isCollapsed || isMobile}
+            />
+          </Link>
 
-          {/* Desktop Collapse Toggle */}
-          {!isMobile && onToggleCollapse && (
+          {!isMobile && onToggleCollapse && !isCollapsed && (
             <button
               onClick={onToggleCollapse}
-              title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              title="Collapse sidebar"
               className="p-1.5 rounded-full hover:opacity-100 opacity-60 transition-all cursor-pointer"
               style={{
                 color: 'var(--text-secondary, #4B5563)',
                 background: 'var(--bg-card-subtle, #F4F5F8)'
               }}
-              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-label="Collapse sidebar"
             >
-              {isCollapsed ? (
-                <ChevronRight className="w-3.5 h-3.5" />
-              ) : (
-                <ChevronLeft className="w-3.5 h-3.5" />
-              )}
+              <ChevronLeft className="w-3.5 h-3.5" />
+            </button>
+          )}
+
+          {!isMobile && onToggleCollapse && isCollapsed && (
+            <button
+              onClick={onToggleCollapse}
+              title="Expand sidebar"
+              className="p-1.5 rounded-full hover:opacity-100 opacity-60 transition-all cursor-pointer"
+              style={{
+                color: 'var(--text-secondary, #4B5563)',
+                background: 'var(--bg-card-subtle, #F4F5F8)'
+              }}
+              aria-label="Expand sidebar"
+            >
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
-        {/* Navigation Items */}
-        <nav className="space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                onClick={onCloseMobile}
-                title={isCollapsed && !isMobile ? item.name : undefined}
-                className={({ isActive }) => `
-                  group relative flex items-center rounded-full text-xs font-semibold transition-all duration-200
-                  ${isCollapsed && !isMobile ? 'justify-center px-0 py-2.5 w-full' : 'justify-between px-3.5 py-2.5'}
-                  ${isActive
-                    ? 'theme-nav-active shadow-sm'
-                    : 'theme-nav-inactive hover:opacity-100'
-                  }
-                `}
-                style={({ isActive }) => ({
-                  background: isActive ? 'var(--switcher-active-bg, #111827)' : 'transparent',
-                  color: isActive ? 'var(--switcher-active-text, #FFFFFF)' : 'var(--text-secondary, #4B5563)'
-                })}
+        {/* Top Deck: Navigation */}
+        <div
+          className="rounded-[28px] p-2.5 shadow-sm border transition-all duration-300 flex flex-col theme-card"
+          style={{
+            background: 'var(--bg-card, #FFFFFF)',
+            borderColor: 'var(--border-color, #E5E7EB)'
+          }}
+        >
+          {/* Section Heading: Platform */}
+          <div className={`px-2 py-2 mb-1 ${isCollapsed && !isMobile ? 'text-center' : ''}`}>
+            {(!isCollapsed || isMobile) ? (
+              <span
+                className="text-[10px] font-bold uppercase tracking-wider transition-colors"
+                style={{ color: 'var(--text-muted, #9CA3AF)' }}
               >
-                {({ isActive }) => (
-                  <>
-                    <div className={`flex items-center ${isCollapsed && !isMobile ? 'justify-center' : 'gap-3'}`}>
-                      <Icon
-                        className="w-4 h-4 transition-colors shrink-0"
-                        style={{
-                          color: isActive
-                            ? 'var(--accent-ai, #818CF8)'
-                            : 'currentColor'
-                        }}
-                      />
-                      {(!isCollapsed || isMobile) && (
-                        <span className="truncate">{item.name}</span>
-                      )}
-                    </div>
+                Platform
+              </span>
+            ) : null}
+          </div>
 
-                    {(!isCollapsed || isMobile) && isActive && (
-                      <span
-                        className="w-1.5 h-1.5 rounded-full shrink-0"
-                        style={{ background: 'var(--accent-ai, #6366F1)' }}
-                      />
-                    )}
-
-                    {/* Tooltip for collapsed state */}
-                    {isCollapsed && !isMobile && (
-                      <div className="absolute left-full ml-3 px-2.5 py-1 rounded-md text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-150 z-50 shadow-md theme-card border"
-                        style={{
-                          background: 'var(--bg-card, #111827)',
-                          color: 'var(--text-primary, #FFFFFF)',
-                          borderColor: 'var(--border-color, #374151)'
-                        }}
-                      >
-                        {item.name}
+          {/* Navigation Items */}
+          <nav className="space-y-1">
+            {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  onClick={onCloseMobile}
+                  title={isCollapsed && !isMobile ? item.name : undefined}
+                  className={({ isActive }) => `
+                    group relative flex items-center rounded-full text-xs font-semibold transition-all duration-200
+                    ${isCollapsed && !isMobile ? 'justify-center px-0 py-2.5 w-full' : 'justify-between px-3.5 py-2.5'}
+                    ${isActive
+                      ? 'theme-nav-active shadow-sm'
+                      : 'theme-nav-inactive hover:opacity-100'
+                    }
+                  `}
+                  style={({ isActive }) => ({
+                    background: isActive ? 'var(--switcher-active-bg, #111827)' : 'transparent',
+                    color: isActive ? 'var(--switcher-active-text, #FFFFFF)' : 'var(--text-secondary, #4B5563)'
+                  })}
+                >
+                  {({ isActive }) => (
+                    <>
+                      <div className={`flex items-center ${isCollapsed && !isMobile ? 'justify-center' : 'gap-3'}`}>
+                        <Icon
+                          className="w-4 h-4 transition-colors shrink-0"
+                          style={{
+                            color: isActive
+                              ? 'var(--accent-ai, #818CF8)'
+                              : 'currentColor'
+                          }}
+                        />
+                        {(!isCollapsed || isMobile) && (
+                          <span className="truncate">{item.name}</span>
+                        )}
                       </div>
-                    )}
-                  </>
-                )}
-              </NavLink>
-            );
-          })}
-        </nav>
+
+                      {(!isCollapsed || isMobile) && isActive && (
+                        <span
+                          className="w-1.5 h-1.5 rounded-full shrink-0"
+                          style={{ background: 'var(--accent-ai, #6366F1)' }}
+                        />
+                      )}
+
+                      {/* Tooltip for collapsed state */}
+                      {isCollapsed && !isMobile && (
+                        <div
+                          className="absolute left-full ml-3 px-2.5 py-1 rounded-md text-[11px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-150 z-50 shadow-md theme-card border"
+                          style={{
+                            background: 'var(--bg-card, #111827)',
+                            color: 'var(--text-primary, #FFFFFF)',
+                            borderColor: 'var(--border-color, #374151)'
+                          }}
+                        >
+                          {item.name}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              );
+            })}
+          </nav>
+        </div>
       </div>
 
       {/* Bottom Status Deck */}

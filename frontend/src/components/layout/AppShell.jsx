@@ -37,54 +37,54 @@ export const AppShell = () => {
       openNotifications: () => setIsNotificationsOpen(true)
     }}>
       <div
-        className="min-h-screen flex flex-col antialiased transition-colors duration-300"
+        className="min-h-screen antialiased transition-colors duration-300 relative"
         style={{
           background: 'var(--bg-page, #F8F9FC)',
           color: 'var(--text-primary, #111827)'
         }}
       >
-        
-        {/* Top Header */}
-        <Header
-          onOpenSearch={() => setIsSearchOpen(true)}
-          onOpenNotifications={() => setIsNotificationsOpen(true)}
-          onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
+        {/* Fixed Left Desktop Sidebar (pinned to viewport, never scrolls away) */}
+        <Sidebar
+          isCollapsed={isSidebarCollapsed}
+          onToggleCollapse={() => setIsSidebarCollapsed(prev => !prev)}
         />
 
-        <div className="flex-1 flex overflow-hidden">
-          
-          {/* Desktop Sidebar */}
-          <div className="hidden lg:block shrink-0">
-            <Sidebar
-              isCollapsed={isSidebarCollapsed}
-              onToggleCollapse={() => setIsSidebarCollapsed(prev => !prev)}
+        {/* Mobile/Tablet Slide-over Sidebar Drawer */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <div
+              className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+              onClick={() => setIsMobileMenuOpen(false)}
             />
-          </div>
-
-          {/* Mobile/Tablet Slide-over Sidebar */}
-          {isMobileMenuOpen && (
-            <div className="fixed inset-0 z-40 lg:hidden">
-              <div
-                className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
-                onClick={() => setIsMobileMenuOpen(false)}
+            <div
+              className="fixed inset-y-0 left-0 w-64 z-50 shadow-2xl transition-transform"
+              style={{ background: 'var(--bg-card, #FFFFFF)' }}
+            >
+              <Sidebar
+                isMobile={true}
+                onCloseMobile={() => setIsMobileMenuOpen(false)}
               />
-              <div
-                className="fixed inset-y-0 left-0 w-64 z-50 shadow-2xl transition-transform"
-                style={{ background: 'var(--bg-card, #FFFFFF)' }}
-              >
-                <Sidebar
-                  isMobile={true}
-                  onCloseMobile={() => setIsMobileMenuOpen(false)}
-                />
-              </div>
             </div>
-          )}
+          </div>
+        )}
+
+        {/* Main Content & Header Area - Offset with Left Padding so content never goes under fixed sidebar */}
+        <div
+          className={`flex flex-col min-h-screen transition-all duration-300 ${
+            isSidebarCollapsed ? 'lg:pl-20' : 'lg:pl-64'
+          }`}
+        >
+          {/* Top Header */}
+          <Header
+            onOpenSearch={() => setIsSearchOpen(true)}
+            onOpenNotifications={() => setIsNotificationsOpen(true)}
+            onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
+          />
 
           {/* Main Content Workspace */}
-          <main className="flex-1 overflow-y-auto px-4 sm:px-8 md:px-12 py-8 md:py-10 max-w-7xl mx-auto w-full transition-all">
+          <main className="flex-1 px-4 sm:px-8 md:px-12 py-6 md:py-8 max-w-7xl mx-auto w-full transition-all">
             <Outlet />
           </main>
-
         </div>
 
         {/* Global Modals & Drawers */}

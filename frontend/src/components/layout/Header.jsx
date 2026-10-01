@@ -25,11 +25,11 @@ export const Header = ({ onOpenSearch, onOpenNotifications, onToggleMobileMenu }
   return (
     <header className="h-20 bg-transparent sticky top-0 z-30 px-4 sm:px-8 md:px-12 flex items-center justify-between gap-4 transition-all">
       
-      {/* Left: Refined FlowMind Logo & Mobile Hamburger */}
-      <div className="flex items-center gap-3 shrink-0">
+      {/* Left: Refined FlowMind Logo & Mobile Hamburger (Mobile Only) */}
+      <div className="flex items-center gap-3 shrink-0 lg:hidden">
         <button
           onClick={onToggleMobileMenu}
-          className="lg:hidden p-2 rounded-full border shadow-sm transition-colors cursor-pointer"
+          className="p-2 rounded-full border shadow-sm transition-colors cursor-pointer"
           style={{
             background: 'var(--bg-card, #FFFFFF)',
             borderColor: 'var(--border-color, #E5E7EB)',
